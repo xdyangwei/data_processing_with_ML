@@ -19,7 +19,7 @@ for line in data.readlines():
     list3=[]
     line_list=line.strip('\n').split()
     if(line_list[0]=="=>"):
-        print(line_list[2][0:-1],line_list[4][0:-1],abs(float(line_list[2][0:-1])-float(prev_x)),abs(float(line_list[4][0:-1])-float(prev_y)))
+        #print(line_list[2][0:-1],line_list[4][0:-1],abs(float(line_list[2][0:-1])-float(prev_x)),abs(float(line_list[4][0:-1])-float(prev_y)))
         if(abs(float(line_list[2][0:-1])-float(prev_x))>=5 or abs(float(line_list[4][0:-1])-float(prev_y))>=5):
             print(line_list[2][0:-1],line_list[4][0:-1],prev_x,prev_y,"yes")
         else:          
@@ -44,7 +44,7 @@ for line in data.readlines():
 
 x=[n[0] for n in list1]
 y=[n[1] for n in list1]
-plt.scatter(x,y)
+plt.plot(x,y)
 plt.title("radar postion")
 plt.xlabel("x")
 plt.ylabel("y")
