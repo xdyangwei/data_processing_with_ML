@@ -1,4 +1,5 @@
 from sklearn.cluster import KMeans
+from sklearn.neighbors import LocalOutlierFactor
 import numpy as np
 import matplotlib.pyplot as plt 
 data=open("C:\\data.txt")
@@ -20,14 +21,14 @@ for line in data.readlines():
     line_list=line.strip('\n').split()
     if(line_list[0]=="=>"):
         #print(line_list[2][0:-1],line_list[4][0:-1],abs(float(line_list[2][0:-1])-float(prev_x)),abs(float(line_list[4][0:-1])-float(prev_y)))
-        if(abs(float(line_list[2][0:-1])-float(prev_x))>=5 or abs(float(line_list[4][0:-1])-float(prev_y))>=5):
-            print(line_list[2][0:-1],line_list[4][0:-1],prev_x,prev_y,"yes")
-        else:          
-            list3.append(line_list[2][0:-1])
-            list3.append(line_list[4][0:-1])
-            list2.append(list3)
-            prev_x=line_list[2][0:-1]
-            prev_y=line_list[4][0:-1]
+        # if(abs(float(line_list[2][0:-1])-float(prev_x))>=5 or abs(float(line_list[4][0:-1])-float(prev_y))>=5):
+        #     print(line_list[2][0:-1],line_list[4][0:-1],prev_x,prev_y,"yes")
+        # else:          
+        list3.append(line_list[2][0:-1])
+        list3.append(line_list[4][0:-1])
+        list2.append(list3)
+        prev_x=line_list[2][0:-1]
+        prev_y=line_list[4][0:-1]
     else:
         if(time==0 or line_list[0][:1]==time):
             time=line_list[0][:19]
@@ -42,9 +43,15 @@ for line in data.readlines():
             list2.clear()
             time=line_list[0][:19]
 
-x=[n[0] for n in list1]
-y=[n[1] for n in list1]
-plt.plot(x,y)
+model=LocalOutlierFactor(n_neighbors=10)
+clf=model.fit_predict(list1)
+list3=[]
+for index,point in enumerate(list1):
+    if(clf[index]==1):
+        list3.append(point)
+x=[n[0] for n in list3]
+y=[n[1] for n in list3]
+plt.scatter(x,y)
 plt.title("radar postion")
 plt.xlabel("x")
 plt.ylabel("y")
