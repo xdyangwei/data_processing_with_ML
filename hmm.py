@@ -12,6 +12,7 @@ for index in range(len(data)):
 # for x in sample:
 #     print(x[0],x[1])
 n=8
-model=GaussianHMM(n_components=n).fit(sample)
-hidden_states = model.predict(sample)
-print(model.n_features)
+X=[[1.0,2.0]]
+model=GaussianHMM(n_components=n,n_iter=100).fit(sample)
+hidden_states = model.predict(X)
+print(hidden_states)
