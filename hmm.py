@@ -12,9 +12,8 @@ for index in range(len(data)):
         sample.append(sample1)
 # for x in sample:
 #     print(x[0],x[1])
-n=3
-X=[[0.6,-0.1]]
-model=GaussianHMM(n_components=n,n_iter=100,covariance_type="full").fit(sample)
-print(model.startprob_)
-print(model.transmat_)
-#print(model.emissionprob_)
+n=8
+model=GaussianHMM(n_components=n,n_iter=100).fit(sample)
+x=model.predict(sample)
+for result in range(len(x)):
+    print(x[result],sample[result])
